@@ -34,6 +34,7 @@ public class OptionsPanel extends JPanel {
 		final JLabel compressionLabel = new JLabel("Compression");
 		topPanel.add(compressionLabel);
 		compressionComboBox = new JComboBox(getCompressionOpts());
+		compressionComboBox.setMaximumSize(compressionComboBox.getMinimumSize());
 		topPanel.add(compressionComboBox);
 		
 		// Tar options.
@@ -52,6 +53,7 @@ public class OptionsPanel extends JPanel {
 		final JLabel levelLabel = new JLabel("Level:");
 		SpinnerNumberModel levelSpinnerNumberModel = new SpinnerNumberModel(9, 1, 9, 1);
 		levelSpinner = new JSpinner(levelSpinnerNumberModel);
+		levelSpinner.setMaximumSize(levelSpinner.getMinimumSize());
 		JPanel levelPanel = new JPanel();
 		levelPanel.setLayout(new BoxLayout(levelPanel, BoxLayout.X_AXIS));
 		levelPanel.add(levelLabel);
@@ -67,6 +69,7 @@ public class OptionsPanel extends JPanel {
 		// Destination.
 		final JLabel destinationLabel = new JLabel("Destination");
 		destinationComboBox = new JComboBox(getDestinations());
+		destinationComboBox.setMaximumSize(destinationComboBox.getMinimumSize());
 		topPanel.add(destinationLabel);
 		topPanel.add(destinationComboBox);
 		
