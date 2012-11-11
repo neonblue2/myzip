@@ -15,12 +15,12 @@ import javax.swing.SpinnerNumberModel;
 
 public class OptionsPanel extends JPanel {
 	private JButton compressButton;
-	private JComboBox<String> compressionComboBox;
+	private JComboBox compressionComboBox;
 	private JRadioButton gnutarRadioButton;
 	private JRadioButton bsdtarRadioButton;
 	private JSpinner levelSpinner;
 	private JCheckBox zipEncryptCheckBox;
-	private JComboBox<String> destinationComboBox;
+	private JComboBox destinationComboBox;
 	
 	public OptionsPanel() {
 		setLayout(new BorderLayout());
@@ -33,7 +33,7 @@ public class OptionsPanel extends JPanel {
 		// Compression type option.
 		final JLabel compressionLabel = new JLabel("Compression");
 		topPanel.add(compressionLabel);
-		compressionComboBox = new JComboBox<String>(getCompressionOpts());
+		compressionComboBox = new JComboBox(getCompressionOpts());
 		topPanel.add(compressionComboBox);
 		
 		// Tar options.
@@ -66,7 +66,7 @@ public class OptionsPanel extends JPanel {
 		
 		// Destination.
 		final JLabel destinationLabel = new JLabel("Destination");
-		destinationComboBox = new JComboBox<String>(getDestinations());
+		destinationComboBox = new JComboBox(getDestinations());
 		topPanel.add(destinationLabel);
 		topPanel.add(destinationComboBox);
 		
