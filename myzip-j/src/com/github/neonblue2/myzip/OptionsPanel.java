@@ -102,7 +102,7 @@ public class OptionsPanel extends JPanel {
 		
 		globalConstraints.weighty = 1.0;
 		globalConstraints.fill = GridBagConstraints.VERTICAL;
-		middlePanel.add(javax.swing.Box.createVerticalGlue(), globalConstraints);
+		middlePanel.add(Box.createVerticalGlue(), globalConstraints);
 		
 		// Compress button at the bottom of this JPanel.
 		compressButton = new JButton("Compress");
