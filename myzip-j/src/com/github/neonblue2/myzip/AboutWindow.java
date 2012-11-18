@@ -20,20 +20,115 @@
 package com.github.neonblue2.myzip;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class AboutWindow extends JFrame {
 	public AboutWindow() {
-		//setResizable(false);
+		setTitle("About MyZip");
+		
+		setMinimumSize(new Dimension(370, 396));
+		setResizable(false);
 		setLayout(new BorderLayout());
 		
-		final JLabel text = new JLabel("MyZip");
-		add(text, BorderLayout.CENTER);
+		final JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new GridLayout(5, 1));
+		
+		final JLabel iconLabel = new JLabel("ICON GOES HERE");
+		infoPanel.add(iconLabel);
+		
+		final JLabel titleLabel = new JLabel("MyZip");
+		infoPanel.add(titleLabel);
+		
+		final JLabel infoLabel = new JLabel("A GUI for various command line compression programs.");
+		infoPanel.add(infoLabel);
+		
+		final JLabel copyrightLabel = new JLabel("Copyright (C) 2012 James Madley");
+		infoPanel.add(copyrightLabel);
+		
+		final JLabel linkLabel = new JLabel("<HTML><FONT color=\"#0000ee\"><U>https://github.com/neonblue2/myzip</U></FONT></HTML>");
+		linkLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		linkLabel.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent event) {
+				Desktop desktop = Desktop.getDesktop();
+				try {
+					desktop.browse(new URI("https://github.com/neonblue2/myzip"));
+				} catch (URISyntaxException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent event) {}
+			
+			@Override
+			public void mousePressed(MouseEvent event) {}
+			
+			@Override
+			public void mouseExited(MouseEvent event) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent event) {}
+		});
+		infoPanel.add(linkLabel);
+		
+		add(infoPanel, BorderLayout.CENTER);
+		
+		final JPanel bottomPanel = new JPanel();
+		bottomPanel.setLayout(new BorderLayout());
+		
+		final JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+		
+		final JButton creditsButton = new JButton("Credits");
+		buttonPanel.add(creditsButton);
+		
+		final JButton licenseButton = new JButton("License");
+		buttonPanel.add(licenseButton);
+		
+		buttonPanel.add(Box.createHorizontalGlue());
 		
 		final JButton closeButton = new JButton("Close");
-		add(closeButton, BorderLayout.SOUTH);
+		closeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				closeWindow();
+			}
+		});
+		buttonPanel.add(closeButton);
+		
+		bottomPanel.add(buttonPanel, BorderLayout.CENTER);
+		bottomPanel.add(Box.createRigidArea(new Dimension(0,12)), BorderLayout.NORTH);
+		bottomPanel.add(Box.createRigidArea(new Dimension(0,12)), BorderLayout.SOUTH);
+		bottomPanel.add(Box.createRigidArea(new Dimension(12,0)), BorderLayout.WEST);
+		bottomPanel.add(Box.createRigidArea(new Dimension(12,0)), BorderLayout.EAST);
+		
+		add(bottomPanel, BorderLayout.SOUTH);
+	}
+	
+	private void closeWindow() {
+		WindowEvent closeEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
 	}
 }
