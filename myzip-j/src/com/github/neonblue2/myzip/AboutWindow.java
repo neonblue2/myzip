@@ -23,7 +23,8 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,19 +51,34 @@ public class AboutWindow extends JFrame {
 		setLayout(new BorderLayout());
 		
 		final JPanel infoPanel = new JPanel();
-		infoPanel.setLayout(new GridLayout(5, 1));
+		infoPanel.setLayout(new GridBagLayout());
+		
+		GridBagConstraints globalConstraints = new GridBagConstraints();
+		globalConstraints.gridx = 0;
+		globalConstraints.anchor = GridBagConstraints.NORTH;
+		globalConstraints.fill = GridBagConstraints.NONE;
+		globalConstraints.weightx = 1.0;
+		globalConstraints.weighty = 0.0;
 		
 		final JLabel iconLabel = new JLabel("ICON GOES HERE");
-		infoPanel.add(iconLabel);
+		infoPanel.add(iconLabel, globalConstraints);
+		
+		infoPanel.add(Box.createRigidArea(new Dimension(0,12)), globalConstraints);
 		
 		final JLabel titleLabel = new JLabel("MyZip");
-		infoPanel.add(titleLabel);
+		infoPanel.add(titleLabel, globalConstraints);
 		
-		final JLabel infoLabel = new JLabel("A GUI for various command line compression programs.");
-		infoPanel.add(infoLabel);
+		infoPanel.add(Box.createRigidArea(new Dimension(0,12)), globalConstraints);
 		
-		final JLabel copyrightLabel = new JLabel("Copyright (C) 2012 James Madley");
-		infoPanel.add(copyrightLabel);
+		final JLabel infoLabel = new JLabel("File compression frontend.");
+		infoPanel.add(infoLabel, globalConstraints);
+		
+		infoPanel.add(Box.createRigidArea(new Dimension(0,12)), globalConstraints);
+		
+		final JLabel copyrightLabel = new JLabel("Copyright © 2012 James Madley");
+		infoPanel.add(copyrightLabel, globalConstraints);
+		
+		infoPanel.add(Box.createRigidArea(new Dimension(0,12)), globalConstraints);
 		
 		final JLabel linkLabel = new JLabel("<HTML><FONT color=\"#0000ee\"><U>https://github.com/neonblue2/myzip</U></FONT></HTML>");
 		linkLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -91,12 +107,11 @@ public class AboutWindow extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent event) {}
 		});
-		infoPanel.add(linkLabel);
+		infoPanel.add(linkLabel, globalConstraints);
 		
-		add(infoPanel, BorderLayout.CENTER);
-		
-		final JPanel bottomPanel = new JPanel();
-		bottomPanel.setLayout(new BorderLayout());
+		globalConstraints.fill = GridBagConstraints.VERTICAL;
+		globalConstraints.weighty = 1.0;
+		infoPanel.add(Box.createVerticalGlue(), globalConstraints);
 		
 		final JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
@@ -118,13 +133,15 @@ public class AboutWindow extends JFrame {
 		});
 		buttonPanel.add(closeButton);
 		
-		bottomPanel.add(buttonPanel, BorderLayout.CENTER);
-		bottomPanel.add(Box.createRigidArea(new Dimension(0,12)), BorderLayout.NORTH);
-		bottomPanel.add(Box.createRigidArea(new Dimension(0,12)), BorderLayout.SOUTH);
-		bottomPanel.add(Box.createRigidArea(new Dimension(12,0)), BorderLayout.WEST);
-		bottomPanel.add(Box.createRigidArea(new Dimension(12,0)), BorderLayout.EAST);
+		globalConstraints.fill = GridBagConstraints.HORIZONTAL;
+		globalConstraints.weighty = 0.0;
+		infoPanel.add(buttonPanel, globalConstraints);
 		
-		add(bottomPanel, BorderLayout.SOUTH);
+		add(infoPanel, BorderLayout.CENTER);
+		add(Box.createRigidArea(new Dimension(0,12)), BorderLayout.NORTH);
+		add(Box.createRigidArea(new Dimension(0,12)), BorderLayout.SOUTH);
+		add(Box.createRigidArea(new Dimension(12,0)), BorderLayout.WEST);
+		add(Box.createRigidArea(new Dimension(12,0)), BorderLayout.EAST);
 	}
 	
 	private void closeWindow() {
