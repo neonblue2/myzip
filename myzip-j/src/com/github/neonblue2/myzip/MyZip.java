@@ -48,6 +48,12 @@ public class MyZip {
 		
 		JMenu helpMenu = new JMenu("Help");
 		JMenuItem helpMenuItem = new JMenuItem("About");
+		helpMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				new AboutWindow().setVisible(true);
+			}
+		});
 		helpMenu.add(helpMenuItem);
 		menuBar.add(helpMenu);
 		
