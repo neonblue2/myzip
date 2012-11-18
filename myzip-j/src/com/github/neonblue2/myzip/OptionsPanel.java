@@ -1,6 +1,5 @@
 package com.github.neonblue2.myzip;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -25,12 +24,7 @@ public class OptionsPanel extends JPanel {
 	private JComboBox destinationComboBox;
 	
 	public OptionsPanel() {
-		setLayout(new BorderLayout());
-		
-		// The JPanel that holds everything above the "Compress" button
-		// at the bottom.
-		JPanel topPanel = new JPanel();
-		topPanel.setLayout(new GridBagLayout());
+		setLayout(new GridBagLayout());
 		
 		GridBagConstraints globalConstraints = new GridBagConstraints();
 		globalConstraints.gridx = 0;
@@ -42,8 +36,8 @@ public class OptionsPanel extends JPanel {
 		final JLabel compressionLabel = new JLabel("Compression");
 		compressionComboBox = new JComboBox(getCompressionOpts());
 		compressionComboBox.setMaximumSize(compressionComboBox.getMinimumSize());
-		topPanel.add(compressionLabel, globalConstraints);
-		topPanel.add(compressionComboBox, globalConstraints);
+		add(compressionLabel, globalConstraints);
+		add(compressionComboBox, globalConstraints);
 		
 		// Tar options.
 		gnutarRadioButton = new JRadioButton("GNU Tar");
@@ -55,7 +49,7 @@ public class OptionsPanel extends JPanel {
 		tarPanel.setLayout(new BoxLayout(tarPanel, BoxLayout.X_AXIS));
 		tarPanel.add(gnutarRadioButton);
 		tarPanel.add(bsdtarRadioButton);
-		topPanel.add(tarPanel, globalConstraints);
+		add(tarPanel, globalConstraints);
 		
 		// Compression level.
 		final JLabel levelLabel = new JLabel("Level:");
@@ -66,30 +60,31 @@ public class OptionsPanel extends JPanel {
 		levelPanel.setLayout(new BoxLayout(levelPanel, BoxLayout.X_AXIS));
 		levelPanel.add(levelLabel);
 		levelPanel.add(levelSpinner);
-		topPanel.add(levelPanel, globalConstraints);
+		add(levelPanel, globalConstraints);
 		
 		// Extra options.
 		final JLabel optionsLabel = new JLabel("Options");
 		zipEncryptCheckBox = new JCheckBox("ZIP Encryption");
-		topPanel.add(optionsLabel, globalConstraints);
-		topPanel.add(zipEncryptCheckBox, globalConstraints);
+		add(optionsLabel, globalConstraints);
+		add(zipEncryptCheckBox, globalConstraints);
 		
 		// Destination.
 		final JLabel destinationLabel = new JLabel("Destination");
 		destinationComboBox = new JComboBox(getDestinations());
 		destinationComboBox.setMaximumSize(destinationComboBox.getMinimumSize());
-		topPanel.add(destinationLabel, globalConstraints);
-		topPanel.add(destinationComboBox, globalConstraints);
+		add(destinationLabel, globalConstraints);
+		add(destinationComboBox, globalConstraints);
 		
 		globalConstraints.weighty = 1.0;
 		globalConstraints.fill = GridBagConstraints.VERTICAL;
-		topPanel.add(javax.swing.Box.createVerticalGlue(), globalConstraints);
+		add(javax.swing.Box.createVerticalGlue(), globalConstraints);
 		
 		// Compress button at the bottom of this JPanel.
 		compressButton = new JButton("Compress");
 		
-		add(topPanel, BorderLayout.CENTER);
-		add(compressButton, BorderLayout.SOUTH);
+		globalConstraints.weighty = 0.0;
+		globalConstraints.fill = GridBagConstraints.HORIZONTAL;
+		add(compressButton, globalConstraints);
 	}
 	
 	/**
